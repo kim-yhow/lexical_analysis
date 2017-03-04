@@ -3,8 +3,6 @@
 #pragma   warning (disable: 4786)
 #include <vector>
 #include "Analysis.h"
-
-
 using namespace std;
 
 //构造函数
@@ -12,17 +10,11 @@ Analysis::Analysis(char *filename)
 {
 	LoadFile(filename);
 	LoadKeys("keys.txt");
-	LoadOpera("opera.txt");
-	LoadDelim("delim.txt");
 	itstr=file_text.begin();
 	NUM_FLAG=CONST_NUM_INT;		//初始化
 	ID_FLAG=NORMAL_ID;
-
-
-
+	IS_DEF=0;
 }
-
-
 //初始化token
 void Analysis::initToken()
 {
@@ -39,9 +31,7 @@ void Analysis::getToken()
 	}
 	token+=*itstr;
 	itstr++;
-
 }
-
 
 //加载文件
 bool Analysis::LoadFile(char* filename)
@@ -65,6 +55,7 @@ bool Analysis::LoadFile(char* filename)
 //加载保留字文件
 bool Analysis::LoadKeys(char* filename)
 {
+	int hash=0;					//哈希参数
 	ifstream file(filename);
 	if(!file.is_open())
 	{
@@ -73,59 +64,60 @@ bool Analysis::LoadKeys(char* filename)
 		return false;
 	}
 	string temp="";
+	int i=1;
+	string::iterator lt;	
 	while(!file.eof())
 	{
-		getline(file,temp);
-		keys.push_back(temp);
+		
+		file>>temp;
+		lt=temp.end()-1;
+		hash=((temp[0]-'a')*5+(*lt-'a'))%80;
+		while(keys[hash].compare("")!=0)	//当哈希表中不为空，即表中有值
+		{
+			hash++;
+		}
+		keys[hash]=temp;
+		i++;
 	}
-	return true;
-}
-
-//加载运算符文件
-bool Analysis::LoadOpera(char* filename)
-{
-	ifstream file(filename);
-	if(!file.is_open())
-	{
-		cout<<"警告：无法打开运算符字文件，请确认文件是否存在！"<<endl;
-		exit(1);
-		return false;
-	}
-	string temp="";
-	while(!file.eof())
+	
+	/*
+while(!file.eof())
 	{
 		getline(file,temp);
-		opera.push_back(temp);
-	}
+		kkeys.push_back(temp);
+	}*/
 	return true;
-}
-
-
-
-//加载界符符文件
-bool Analysis::LoadDelim(char* filename)
-{
-	ifstream file(filename);
-	if(!file.is_open())
-	{
-		cout<<"警告：无法打开运算符字文件，请确认文件是否存在！"<<endl;
-		exit(1);
-		return false;
-	}
-	string temp="";
-	while(!file.eof())
-	{
-		getline(file,temp);
-		delim.push_back(temp);
-	}
-	return true;
+	
 }
 
 //判断是否是保留字
 bool Analysis::isTokenKey()
 {
-	int i=4;
- for(vector<string>::iterator iter=keys.begin();iter!=keys.end();iter++)
+
+	if(token[0]>='A' && token[0]<='Z' || token[0]>='a' && token[0]<='z')
+	{
+	string::iterator lt;
+	lt=token.end()-1;
+	int hskey=0;
+	hskey=((token[0]-'a')*5+(*lt-'a'))%80;
+	
+	while(keys[hskey].compare("")!=0 && hskey<80)
+	{
+		if(keys[hskey].compare(token)==0 )	
+		{
+			ID_FLAG=hskey;
+			return true;
+		}
+		hskey++;
+	}
+	}
+	return false;
+
+/*
+	clock_t start,finish;  
+    start=clock();
+int i=4;
+ for(vector<string>::iterator iter=kkeys.begin();iter!=kkeys.end();iter++)
 	{
 			if(token.compare(*iter)==0)
 			{
@@ -140,40 +132,11 @@ bool Analysis::isTokenKey()
 		}
 	}
  return false;
-}
+		finish=clock();
+	cout<<"isTokenKey运行时间："<<finish-start<<endl;*/
 
-//判断是否是界符
-bool Analysis::isDelim()
-{
-	/*
-	*成员变量string::iterator itstr迭代器得到的值为char ，所以比较此时值是否为界符时，需要将
-	*vector<string>:: iterator iter迭代器 每个元素的首元素进行比较，即string类的 首元素就是char了
-	*这样就可以进行比较
-	*/
- for(vector<string>::iterator iter=delim.begin();iter!=delim.end();iter++)
-	{
-			if((*iter)[0]==*itstr)
-			{
-				return true;
-			}
-	}
- return false;
-}
 
-//判断是否是运算符
-bool Analysis::isOpera()
-{
-	//同上
-	 for(vector<string>::iterator iter=delim.begin();iter!=delim.end();iter++)
-	{
-		if((*iter)[0]==*itstr)
-			{
-				return true;
-			}
-	}
- return false;
 }
-
 
 //判断是否数字
 bool Analysis::isDigital()
@@ -182,7 +145,6 @@ bool Analysis::isDigital()
 	 {
 		 return true;
 	 }
- 
  return false;
 }
 
@@ -195,14 +157,6 @@ bool Analysis::isLetter()
 	else
 		return false;
 }
-/*
-//判断是否是空格
-bool Analysis::isSpace()
-{
-	if(*itstr==' ')
-		return true;
-	return false;
-}*/
 
 //输出
 void Analysis::output(int tmp,string tok="—")
@@ -219,6 +173,31 @@ void Analysis::output(int tmp,string tok="—")
 	else 
 		cout<<"<"<<tmp<<","<<"指向"<<tok<<"的符号表项的指针>"<<endl;
 }
+
+
+//保存标识符
+bool Analysis::saveIdr()
+{
+	ofstream file;
+	file.open("idr.txt");
+	if(!file.is_open())
+	{
+		cout<<"警告：无法打开文件！"<<endl;
+		exit(1);
+		return false;
+	}
+	for(vector<string>::iterator lt=Idr.begin();lt<Idr.end();lt++)
+	{
+		if(!IS_DEF)
+			file<<*lt<<"未定义"<<endl;
+	}
+	file.close();
+	return true;
+}
+
+
+
+
 
 void Analysis::scanner()
 {	
@@ -278,7 +257,8 @@ void Analysis::scanner()
 			output(ID_FLAG);
 		}
 		else
-		{output(ID_FLAG,token);	}	
+		{	Idr.push_back(token);
+			output(ID_FLAG,token);	}	
 	}
 
 	//判断是否是运算符
@@ -434,10 +414,9 @@ void Analysis::scanner()
 		output(ERROR,token);itstr++;
 		break;
 	}
-	}
-	
-}
+	}	
+}	
+saveIdr();
 
-				
+			
 }
-

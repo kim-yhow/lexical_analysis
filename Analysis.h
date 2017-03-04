@@ -1,136 +1,130 @@
 #ifndef ANALY_H
 #define ANALY_H
-//å› ä¸ºåœ¨ä½¿ç”¨STLï¼ˆC++æ ‡å‡†æ¨¡æ¿åº“ï¼‰çš„æ—¶å€™ç»å¸¸å¼•å‘ç±»ä¼¼çš„é”™è¯¯ï¼Œå°¤å…¶æ˜¯vectorï¼Œmapè¿™ç±»æ¨¡æ¿ç±»ï¼Œæ¨¡æ¿ä¸­å¥—æ¨¡æ¿ï¼Œä¸€ä¸å°å¿ƒå°±è¶…é•¿äº†ã€‚å¦‚æœå»æ‰è¿™ä¸€å¥ï¼Œä¼šæœ‰è­¦å‘Š
+//ÒòÎªÔÚÊ¹ÓÃSTL£¨C++±ê×¼Ä£°å¿â£©µÄÊ±ºò¾­³£Òı·¢ÀàËÆµÄ´íÎó£¬ÓÈÆäÊÇvector£¬mapÕâÀàÄ£°åÀà£¬Ä£°åÖĞÌ×Ä£°å£¬Ò»²»Ğ¡ĞÄ¾Í³¬³¤ÁË¡£Èç¹ûÈ¥µôÕâÒ»¾ä£¬»áÓĞ¾¯¸æ
 #pragma   warning (disable: 4786)
 #include<vector>
 #include<iostream>
 #include<string>
+#include<ctime>
 #include <map>
 #include <iomanip>
-/*æ ‡è¯†ç¬¦*/
-#define NORMAL_ID				 0			//æ‰€æœ‰æ ‡è¯†ç¬¦
-/*å¸¸æ•°*/
-#define CONST_NUM_INT    1		    //æ•´å‹å¸¸æ•°
-#define CONST_NUM_REAL   2			//å®å‹å¸¸æ•°
-#define CONST_CHAR       3			//å­—ç¬¦å¸¸æ•°
-/*ä¿ç•™å­—*/
-#define KEY_BOOL		4			//bool
-#define KEY_BREAK       5			//break
-#define KEY_CASE		6			//case
-#define KEY_CATCH		7			//catch
-#define KEY_CHAR        8			//char
-#define KEY_CLASS		9			//class
-#define	KEY_CONST		10			//const
-#define KEY_DEFAULT     11         //default
-#define KEY_DO	        12			//do
-#define KEY_DOUBLE		13			//double
-#define	KEY_ELSE		14			//else
-#define	KEY_ENUM		15			//enum
-#define KEY_EXTERN		16			//extern
-#define KEY_FALSE       17			//false
-#define KEY_FLOAT       18			//float
-#define KEY_FOR				19			//for
-#define	KEY_FRIEND			20			//friend
-#define	KEY_GOTO			21			//goto
-#define	KEY_IF				22			//if
-#define	KEY_INLINE			23			//inline
-#define KEY_INT				24			//int
-#define	KEY_LONG			25			//long
-#define	KEY_MAIN			26			//main
-#define	KEY_NAMESPACE		27			//namespace
-#define	KEY_NEW				28			//new
-#define	KEY_OPERATOR		29			//operator
-#define	KEY_PRIVATE			30			//pivate
-#define KEY_PROTECTED		31			//protected
-#define KEY_PUBLIC			32			//public
-#define KEY_RETURN			33			//return
-#define KEY_SHORT			34			//short
-#define KEY_STRUCT			35			//struct
-#define	KEY_SIZEOf			36			//sizeof
-#define	KEY_STATIC			37			//static
+/*±êÊ¶·û*/
+#define NORMAL_ID				 0			//ËùÓĞ±êÊ¶·û
+/*³£Êı*/
+#define CONST_NUM_INT    1		    //ÕûĞÍ³£Êı
+#define CONST_NUM_REAL   2			//ÊµĞÍ³£Êı
+#define CONST_CHAR       3			//×Ö·û³£Êı
+/*±£Áô×Ö*/
+#define KEY_BOOL		16			//bool
+#define KEY_BREAK       15			//break
+#define KEY_CASE		14			//case
+#define KEY_CATCH		17			//catch
+#define KEY_CHAR        27			//char
+#define KEY_CLASS		28			//class
+#define	KEY_CONST		29			//const
+#define KEY_DEFAULT     34         //default
+#define KEY_DO	        30			//do
+#define KEY_DOUBLE		19			//double
+#define	KEY_ELSE		24			//else
+#define	KEY_ENUM		32			//enum
+#define KEY_EXTERN		33			//extern
+#define KEY_FALSE       31			//false
+#define KEY_FLOAT       44			//float
+#define KEY_FOR				42			//for
+#define	KEY_FRIEND			35			//friend
+#define	KEY_GOTO			45			//goto
+#define	KEY_IF				46			//if
+#define	KEY_INLINE			47			//inline
+#define KEY_INT				59			//int
+#define	KEY_LONG			61			//long
+#define	KEY_MAIN			73			//main
+#define	KEY_NAMESPACE		69			//namespace
+#define	KEY_NEW				7			//new
+#define	KEY_OPERATOR		8			//operator
+#define	KEY_PRIVATE			79			//pivate
+#define KEY_PROTECTED		78			//protected
+#define KEY_PUBLIC			77			//public
+#define KEY_RETURN			18			//return
+#define KEY_SHORT			36			//short
+#define KEY_STRUCT			37			//struct
+#define	KEY_SIZEOf			20			//sizeof
+#define	KEY_STATIC			12			//static
 #define	KEY_THROW			38			//throw
-#define	KEY_SWITCH			39			//switch
-#define	KEY_TEMPLATE		40			//template
-#define	KEY_THIS			41			//this
-#define	KEY_TRUE			42			//true
-#define	KEY_TRY				43			//try
-#define	KEY_TYPEDEF			44			//typedef
-#define KEY_USING			45			//using
-#define KEY_TYPENAME		46			//typename
-#define KEY_UNION			47			//union
+#define	KEY_SWITCH			21			//switch
+#define	KEY_TEMPLATE		22			//template
+#define	KEY_THIS			39			//this
+#define	KEY_TRUE			23			//true
+#define	KEY_TRY				40			//try
+#define	KEY_TYPEDEF			25			//typedef
+#define KEY_USING			26			//using
+#define KEY_TYPENAME		41			//typename
+#define KEY_UNION			43			//union
 #define KEY_UNSIGNED		48			//unsigned
 #define KEY_VIRTUAL			49			//virtual
 #define KEY_VOID			50			//void
 #define KEY_WHILE			51			//while	
-#define KEY_INCLUDE			52			//#include
-/*è¿ç®—ç¬¦*/
-#define OPER_LEFT_KUO			53			//(
-#define	OPER_RIGHT_KUO			54			//)
-#define	OPER_EQUAL				55			//=
-#define OPER_DOU_EQUAL			56			//==
-#define	OPER_NEQUAL				57			//!=					
-#define	OPER_GT					58			//>
-#define	OPER_GE					59			//>=
-#define	OPER_LT					60			//<
-#define	OPER_LE					61			//<=
-#define	OPER_LEFT_LEFT			62			//<<
-#define	OPER_RIGHT_RIGHT		63			//>>
-#define	OPER_PLUS				64			//+
-#define	OPER_MINUS				65			//-
-#define	OPER_MUL				66			//*
-#define	OPER_DIVIDE				67			// /
-#define OPER_PLUS_PLUS			68			//++
-#define	OPER_MINUS_MINUS		69			//--
-#define	OPER_POINT_ARROW		70			//->
-#define	OPER_AND				71			//&
-#define	OPER_AND_AND			72			//&&
-#define OPER_POINT				73			//.
-#define OPER_LEFT_MID			74			//[
-#define OPER_RIGHT_MID			75			//]
-/*ç•Œç¬¦*/
-#define DELIM_LEFT_BIG_KUO		76			//{
-#define	DELIM_RIGHT_BIG_KUO		77			//}
-#define	DELIM_FENHAO			78			//;
+/*ÔËËã·û*/
+#define OPER_LEFT_KUO			80			//(
+#define	OPER_RIGHT_KUO			81			//)
+#define	OPER_EQUAL				82			//=
+#define OPER_DOU_EQUAL			83			//==
+#define	OPER_NEQUAL				84			//!=					
+#define	OPER_GT					85			//>
+#define	OPER_GE					86			//>=
+#define	OPER_LT					87			//<
+#define	OPER_LE					88			//<=
+#define	OPER_LEFT_LEFT			89			//<<
+#define	OPER_RIGHT_RIGHT		90			//>>
+#define	OPER_PLUS				91			//+
+#define	OPER_MINUS				92			//-
+#define	OPER_MUL				93			//*
+#define	OPER_DIVIDE				94			// /
+#define OPER_PLUS_PLUS			95			//++
+#define	OPER_MINUS_MINUS		96			//--
+#define	OPER_POINT_ARROW		97			//->
+#define	OPER_AND				98			//&
+#define	OPER_AND_AND			99			//&&
+#define OPER_POINT				100			//.
+#define OPER_LEFT_MID			101			//[
+#define OPER_RIGHT_MID			102			//]
+/*½ç·û*/
+#define DELIM_LEFT_BIG_KUO		103			//{
+#define	DELIM_RIGHT_BIG_KUO		104			//}
+#define	DELIM_FENHAO			105			//;
 
-/*å…¶ä»–*/
-#define ERROR					79			//error`
-
-
-
+/*ÆäËû*/
+#define ERROR					106			//error
+/*¹şÏ£±í³¤¶È*/
+#define HASH_KEYS				80			//±£Áô×Ö	
 using namespace std;
-
 
 class Analysis
 {
 public:
 	Analysis(char *filename);
-	bool Load();						//åˆå§‹åŒ–åŠ è½½æ–‡ä»¶
-	bool LoadFile(char* filename);		//åŠ è½½æºç¨‹åºæ–‡ä»¶
-	bool LoadKeys(char* filename);		//åŠ è½½ä¿ç•™å­—æ–‡ä»¶
-	bool LoadOpera(char* filename);		//åŠ è½½è¿ç®—ç¬¦æ–‡ä»¶
-	bool LoadDelim(char* filename);		//åŠ è½½ç•Œç¬¦æ–‡ä»¶
-	void scanner();				    	//å¼€å§‹åˆ†æ
-	void output(int tmp,string tok);				//è¾“å‡º
-	bool isOpera();						//åˆ¤æ–­æ­¤æ—¶æ˜¯å¦ä¸ºè¿ç®—ç¬¦
-	bool isDelim();						//åˆ¤æ–­æ­¤æ—¶æ˜¯å¦æ˜¯ç•Œç¬¦
-	bool isDigital();					//åˆ¤æ–­æ­¤æ—¶æ˜¯å¦æ˜¯æ•°å­—
-	bool isTokenKey();				//åˆ¤æ–­æ­¤æ—¶æ˜¯å¦æ˜¯ä¿ç•™å­—
-	bool isLetter();				//åˆ¤æ–­æ˜¯å¦æ˜¯å­—æ¯
-//	bool isSpace();					//åˆ¤æ–­æ˜¯å¦æ˜¯ç©ºæ ¼
-	void initToken();			//åˆå§‹åŒ–token
-	void getToken();				//å°†å½“å‰å…ƒç´ å­˜æ”¾åˆ°tokenä¸­ï¼Œå¹¶ä¸”stringè¿­ä»£å™¨æŒ‡å‘ä¸‹ä¸€ä¸ªå…ƒç´ 
+	bool Load();						//³õÊ¼»¯¼ÓÔØÎÄ¼ş
+	bool LoadFile(char* filename);		//¼ÓÔØÔ´³ÌĞòÎÄ¼ş
+	bool LoadKeys(char* filename);		//¼ÓÔØ±£Áô×ÖÎÄ¼ş
+	void scanner();				    	//¿ªÊ¼·ÖÎö
+	void output(int tmp,string tok);	//Êä³ö
+	bool isDigital();					//ÅĞ¶Ï´ËÊ±ÊÇ·ñÊÇÊı×Ö
+	bool isTokenKey();					//ÅĞ¶Ï´ËÊ±ÊÇ·ñÊÇ±£Áô×Ö
+	bool isLetter();					//ÅĞ¶ÏÊÇ·ñÊÇ×ÖÄ¸
+	void initToken();					//³õÊ¼»¯token
+	void getToken();					//½«µ±Ç°ÔªËØ´æ·Åµ½tokenÖĞ£¬²¢ÇÒstringµü´úÆ÷Ö¸ÏòÏÂÒ»¸öÔªËØ
+	bool saveIdr();						//½«³öÏÖµÄ±íÊ¾·û´æÈëÎÄ¼ş
 
 private:
-	char *filename;					//æ–‡ä»¶å
-	vector<string> keys;			//ä¿ç•™å­—
-	vector<string> opera;			//è¿ç®—ç¬¦
-	vector<string> delim;		//ç•Œç¬¦
-	string file_text;			//æ–‡ä»¶ä¸­çš„å†…å®¹
-	string::iterator itstr;		//stringçš„è¿­ä»£å™¨
-	string token;				//ä¸€ä¸ªå…ƒç´ 
-	int NUM_FLAG;				//ç”¨äºåˆ¤æ–­æ˜¯æ•´å‹æ•°è¿˜æ˜¯å®æ•°
-	int ID_FLAG;				//ç”¨äºåˆ¤æ–­æ˜¯å¦æ˜¯ä¿ç•™å­—
+	char *filename;						//ÎÄ¼şÃû
+	string keys[HASH_KEYS];				//±£Áô×Ö
+	vector<string> Idr;					//±êÊ¶·û
+	string file_text;				    //ÎÄ¼şÖĞµÄÄÚÈİ
+	string::iterator itstr;				//stringµÄµü´úÆ÷
+	string token;						//Ò»¸öÔªËØ
+	int NUM_FLAG;						//ÓÃÓÚÅĞ¶ÏÊÇÕûĞÍÊı»¹ÊÇÊµÊı
+	int ID_FLAG;						//ÓÃÓÚÅĞ¶ÏÊÇ·ñÊÇ±£Áô×Ö
+	int IS_DEF;							//±êÊ¶·ûÊÇ·ñ±»¶¨Òå
+//	vector<string> kkeys;	
 };
-
 
 #endif
