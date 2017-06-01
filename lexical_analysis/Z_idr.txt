@@ -1,0 +1,12 @@
+iostream	全局	
+fstream	全局	
+string	全局	
+Analysis.h	全局	
+cout	全局	std标准库
+endl	全局	std标准库
+ks	全局	int
+po	全局	float
+ll	ke	int
+b	main	int
+a	main	int
+p	main	bool

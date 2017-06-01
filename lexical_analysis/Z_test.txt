@@ -1,0 +1,26 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+#include"Analysis.h"
+using namespace std;
+int ks;
+float po;
+
+void ke()
+{
+int ll;
+cout<<"Hello World"<<endl;
+}
+
+int main() 
+{
+	ke();
+	int b=1;
+	int a=211;
+	b=a+1;
+	bool p;	
+	cout<<s;
+	
+}
+
+
